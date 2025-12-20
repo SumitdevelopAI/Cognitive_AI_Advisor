@@ -1,73 +1,102 @@
-# Cognitive_AI_Advisor: A Neuro-Symbolic System for Mental Health Intervention
+# Hybrid Neuro-Symbolic Mental Health System
 
-## 1. Abstract
+A **research-grade AI system** that integrates **transformer representation learning**, **large language model (LLM) reasoning**, and a **symbolic cognitive control architecture inspired by ACT-R** to produce **interpretable, temporally consistent, and safety-aware** recommendations for emotional-distress detection.
 
-The **Cognitive_AI_Advisor** is an advanced research initiative designed to bridge the gap between statistical Large Language Models (LLMs) and symbolic cognitive architectures. While LLMs excel at linguistic fluency, they lack grounded reasoning, long-term consistency, and verifiable safety—critical requirements for mental health applications. This project implements a **Hybrid Neuro-Symbolic System** based on the **Standard Model of the Mind**, integrating **ACT-R** and **SOAR** architectures with pretrained transformer encoders (**RoBERTa, DeBERTa**) to create an agent capable of reasoning, planning, and maintaining hierarchical memory for safe, preventative mental health support.
-
----
-
-## 2. Theoretical Framework
-
-This project operates on the **Dual-Process Theory** of cognition (Evans & Stanovich, 2013), emulating human cognitive stratification:
-
-* **System 1 (Intuitive/Neural):** Handles rapid pattern matching, emotion detection, and linguistic parsing. Implemented via **Deep Learning (Transformers)**.
-* **System 2 (Deliberative/Symbolic):** Handles slow, sequential reasoning, planning, and rule adherence. Implemented via **Cognitive Architectures (ACT-R, SOAR)**.
-
-### 2.1 The Standard Model of the Mind
-We adhere to the *Common Model of Cognition* (Laird, Lebiere, & Rosenbloom, 2017), which postulates that an intelligent agent must possess independent modules for:
-1.  **Perception** (Neural Encoders)
-2.  **Motor Action** (NLG/Response Generation)
-3.  **Working Memory** (Buffers)
-4.  **Long-Term Memory** (Procedural & Declarative)
-5.  **Cognitive Cycle** (Central production system linking the above)
+This project targets **high-stakes, human-centered AI**, where transparency, robustness, and safety are essential.
 
 ---
 
-## 3. High-Level System Architecture
+## Abstract
 
-The system is deployed as a distributed microservices architecture, ensuring scalability and strict governance.
+Modern deep learning models such as transformers and LLMs demonstrate strong semantic understanding but struggle with **structured reasoning**, **temporal coherence**, and **explicit safety control**—all critical in mental health applications.
+
+This system introduces a **hybrid neuro-symbolic pipeline** that combines:
+
+- **Transformer encoders** for semantic feature extraction  
+- **LLM-based reasoning modules** for contextual enrichment and explanation support  
+- **Symbolic cognitive control** for structured, interpretable, and safe decision logic  
+
+The resulting architecture supports **robust interpretation**, **traceable explanations**, and **controlled escalation behavior**.
+
+---
+
+## Research & Engineering Objectives
+
+The system is designed to achieve the following measurable objectives:
+
+1. **Semantic Representation & Contextualization**
+   - Encode user input using transformer-based models
+   - Apply LLM reasoning selectively to enrich ambiguous contexts
+
+2. **Interpretability**
+   - Expose reasoning through symbolic cognitive states, rule firings, and memory activations
+
+3. **Temporal Consistency**
+   - Maintain coherent predictions across related or sequential inputs
+
+4. **Structured Safety Escalation**
+   - Trigger deterministic escalation paths when confidence is low or evidence conflicts
+   - Evaluate escalation using precision and recall metrics
+
+5. **Robust Evaluation**
+   - Benchmark against adversarial inputs, calibration errors, and failure modes
+   - Compare hybrid system against transformer-only and LLM-only baselines
+
+---
+
+## System Architecture
+
+The system follows a modular, stage-wise design:
+
+### High-Level Pipeline
 
 ```mermaid
-graph LR
-    subgraph Client_Tier ["Client Tier"]
-        UI[("Web Interface")]
-        SecureSocket[("Secure WebSocket (WSS)")]
+flowchart TD
+    subgraph INPUT["User Interaction"]
+        A(User Input Text)
     end
 
-    subgraph Gateway_Tier ["API Gateway & Governance"]
-        LB[("Load Balancer")]
-        Auth[("Auth Service (JWT)")]
-        PII_Mask[("PII Masking Layer")]
+    subgraph PROCESS["1. Text Processing"]
+        B(Preprocess: Cleanup & Tokenize)
+        C(Transformer Encoding)
     end
 
-    subgraph Compute_Tier ["Inference Cluster (Kubernetes)"]
-        direction TB
-        Orch[("Orchestrator")]
-        
-        subgraph Pods ["Model Pods"]
-            Model_Main[("Cognitive Agent Container<br/>(ACT-R + RoBERTa)")]
-            Model_Safety[("Safety Sentinel Container<br/>(DistilBERT)")]
-        end
+    subgraph REP["2. Representation Extraction"]
+        D1(Sentence Semantics)
+        D2(Token Representations)
+        D3(Positional Context)
     end
 
-    subgraph Data_Tier ["Persistence Layer"]
-        Mongo[("MongoDB<br/>(User Meta-Data)")]
-        Pinecone[("Vector Store<br/>(Episodic Memory)")]
+    subgraph LLM["3. LLM Reasoning"]
+        E1(Context Enrichment)
+        E2(Explanation Support)
     end
 
-    subgraph Guardian_Tier ["Escalation & Monitoring"]
-        Risk_Engine[("Risk Analysis Engine")]
-        Notification[("Escalation API")]
+    subgraph CONTROL["4. Cognitive Control"]
+        F1(Symbolic Memory)
+        F2(Goal Buffers)
+        F3(Production Rules)
     end
 
+    subgraph DECISION["5. Decision & Safety"]
+        G(Decision Logic)
+        H(Safe Escalation)
+    end
 
-    %% Flow
-    UI --> SecureSocket --> LB --> Auth --> PII_Mask
-    PII_Mask --> Orch --> Model_Main
-    Model_Main --> Pinecone & Mongo
-    Model_Main -- "Candidate Response" --> Model_Safety
-    Model_Safety -- "Approved" --> SecureSocket
-    Model_Safety -- "Flagged" --> Risk_Engine --> Notification
+    subgraph OUTPUT["6. Output & Explanation"]
+        I(Final Output + Reasoning Trace)
+    end
 
-
-
+    A --> B --> C
+    C --> D1
+    C --> D2
+    C --> D3
+    D1 --> E1
+    D2 --> E2
+    E1 --> F1
+    E2 --> F2
+    F1 --> F3
+    F2 --> G
+    F3 --> G
+    G --> H
+    H --> I
