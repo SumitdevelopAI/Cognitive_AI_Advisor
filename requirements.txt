@@ -26,3 +26,8 @@ seaborn
 plotly
 gunicorn
 redis
+soar-sml
+pyactr
+nltk
+vadtk
+ollama
